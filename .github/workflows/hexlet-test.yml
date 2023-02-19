@@ -2,7 +2,7 @@ name: hexlet-test
 on: push
 jobs:
   build:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@2
