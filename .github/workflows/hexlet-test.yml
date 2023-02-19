@@ -6,5 +6,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      - name: move to the correct directory
+        run: cd app/
       - name: run Makefile
         run: make build
