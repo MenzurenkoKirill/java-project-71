@@ -17,7 +17,7 @@ import static hexlet.code.Parser.generate;
         //sortOptions = false
 )
 public class App implements Callable<String> {
-    @Option(names = {"-f", "--format"},paramLabel = "format",
+    @Option(names = {"-f", "--format"}, paramLabel = "format",
             description = "output format [default: stylish]")
     String format;
     @Parameters(paramLabel = "filepath1", description = "path to first file")
@@ -26,7 +26,7 @@ public class App implements Callable<String> {
     String filepath2;
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this @|fg(30) help|@ message and exit.")
     boolean versionHelpRequested;
-    @Option(names = {"-V", "--version"}, versionHelp=true, description = "Print version information and exit.")
+    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     boolean versionInfoRequested;
     @Override
     public String call() throws Exception {

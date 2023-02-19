@@ -1,21 +1,24 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class Json {
     public static String jsonFormat(Map<String, Object> map1, Map<String, Object> map2) throws Exception {
         Set<String> allKeys = getSortedKeys(map1, map2);
         Map<String, Object> result = new LinkedHashMap<>();
-        for(String key : allKeys) {
-            if(map1.containsKey(key) && !map2.containsKey(key)) {
+        for (String key : allKeys) {
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
                 result.put("- " + key, map1.get(key));
-            } else if(!map1.containsKey(key) && map2.containsKey(key)) {
+            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
                 result.put("+ " + key, map2.get(key));
-            } else if(differ(map1, map2, key)) {
+            } else if (differ(map1, map2, key)) {
                 result.put("- " + key, map1.get(key));
                 result.put("+ " + key, map2.get(key));
             } else {
@@ -38,10 +41,10 @@ public class Json {
     }
     public static Set<String> keysFromMap(Map<String, Object> map) {
         Set<String> result = new HashSet<>();
-        if(map == null) {
+        if (map == null) {
             return result;
         }
-        for(Map.Entry<String, Object> keys : map.entrySet()) {
+        for (Map.Entry<String, Object> keys : map.entrySet()) {
             result.add(keys.getKey());
         }
         return result;

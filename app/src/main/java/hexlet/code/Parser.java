@@ -21,17 +21,17 @@ public class Parser {
     }
     public static Map<String, Object> jsonToMap(Path path) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(readString(path), new TypeReference<Map<String, Object>>(){});
+        return mapper.readValue(readString(path), new TypeReference<Map<String, Object>>() { });
     }
     public static Path pathToFullPath(String path) throws Exception {
         String defaultPath = "src/main/resources";
         File file = new File(defaultPath);
         String absolutePath = file.getAbsolutePath();
         Path resultPath = Path.of(path);
-        if(!path.startsWith("/")) {
+        if (!path.startsWith("/")) {
             resultPath = Path.of(absolutePath + "/" + path);
         }
-        if(new File(resultPath.toString()).exists()) {
+        if (new File(resultPath.toString()).exists()) {
             return resultPath;
         }
         throw new RuntimeException("Файл: " + resultPath + " не существует");
