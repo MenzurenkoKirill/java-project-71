@@ -1,18 +1,17 @@
 package hexlet.code;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import hexlet.code.Parser.*;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Map;
 
 
-public class jsonFormatTest {
-    private final String expectation = "{\"- age\":\"24\",\"+ age\":\"25\",\"+ graduation\":\"yes\"," +
-            "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\"," +
-            "\"- study\":\"yes\",\"  surname\":\"Menzurenko\"}";
+public class JsonTest {
+    private final String expectation = "{\"- age\":\"24\",\"+ age\":\"25\",\"+ graduation\":\"yes\","
+            + "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\","
+            + "\"- study\":\"yes\",\"  surname\":\"Menzurenko\"}";
 
     @Test
     public void generateTest() throws Exception {
@@ -28,7 +27,7 @@ public class jsonFormatTest {
         File file = new File(defaultPath);
         String absolutePath = file.getAbsolutePath();
         Path resultPath = Path.of(path);
-        if(!path.startsWith("/home")) {
+        if (!path.startsWith("/home")) {
             return absolutePath + "/" + path;
         }
         throw new RuntimeException("Файл: " + resultPath + " не существует");

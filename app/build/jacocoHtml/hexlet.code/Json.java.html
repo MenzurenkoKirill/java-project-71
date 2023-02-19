@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Json.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">hexlet.code</a> &gt; <span class="el_source">Json.java</span></div><h1>Json.java</h1><pre class="source lang-java linenums">package hexlet.code;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
+<span class="nc" id="L12">public class Json {</span>
+    public static String jsonFormat(Map&lt;String, Object&gt; map1, Map&lt;String, Object&gt; map2) throws Exception {
+<span class="fc" id="L14">        Set&lt;String&gt; allKeys = getSortedKeys(map1, map2);</span>
+<span class="fc" id="L15">        Map&lt;String, Object&gt; result = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (String key : allKeys) {</span>
+<span class="fc bfc" id="L17" title="All 4 branches covered.">            if (map1.containsKey(key) &amp;&amp; !map2.containsKey(key)) {</span>
+<span class="fc" id="L18">                result.put(&quot;- &quot; + key, map1.get(key));</span>
+<span class="pc bpc" id="L19" title="1 of 4 branches missed.">            } else if (!map1.containsKey(key) &amp;&amp; map2.containsKey(key)) {</span>
+<span class="fc" id="L20">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            } else if (differ(map1, map2, key)) {</span>
+<span class="fc" id="L22">                result.put(&quot;- &quot; + key, map1.get(key));</span>
+<span class="fc" id="L23">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
+            } else {
+<span class="fc" id="L25">                result.put(&quot;  &quot; + key, map2.get(key));</span>
+            }
+<span class="fc" id="L27">        }</span>
+<span class="fc" id="L28">        ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L29">        return mapper.writeValueAsString(result);</span>
+    }
+    public static boolean differ(Map&lt;String, Object&gt; file1, Map&lt;String, Object&gt; file2, String key) throws Exception {
+<span class="fc" id="L32">        Object obj1 = file1.get(key);</span>
+<span class="fc" id="L33">        Object obj2 = file2.get(key);</span>
+<span class="pc bpc" id="L34" title="4 of 8 branches missed.">        return (obj1 == null || obj2 == null ? obj1 != obj2 : !obj1.equals(obj2));</span>
+    }
+    public static Set&lt;String&gt; getSortedKeys(Map&lt;String, Object&gt; map1, Map&lt;String, Object&gt; map2) throws Exception {
+<span class="fc" id="L37">        Set&lt;String&gt; keys1 = keysFromMap(map1);</span>
+<span class="fc" id="L38">        Set&lt;String&gt; keys2 = keysFromMap(map2);</span>
+<span class="fc" id="L39">        keys1.addAll(keys2);</span>
+<span class="fc" id="L40">        return keys1.stream().sorted().collect(Collectors.toCollection(LinkedHashSet::new));</span>
+    }
+    public static Set&lt;String&gt; keysFromMap(Map&lt;String, Object&gt; map) {
+<span class="fc" id="L43">        Set&lt;String&gt; result = new HashSet&lt;&gt;();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L45">            return result;</span>
+        }
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (Map.Entry&lt;String, Object&gt; keys : map.entrySet()) {</span>
+<span class="fc" id="L48">            result.add(keys.getKey());</span>
+<span class="fc" id="L49">        }</span>
+<span class="fc" id="L50">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

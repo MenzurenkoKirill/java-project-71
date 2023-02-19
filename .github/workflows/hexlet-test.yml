@@ -1,9 +1,10 @@
 name: hexlet-test
 on: push
 jobs:
-  runs on: ubuntu-latest
-  steps:
-    - name: Check out repository code
-      uses: actions/checkout@2
-    - name: run Makefile
-      run: make build
+  build:
+    runs on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@2
+      - name: run Makefile
+        run: make build
