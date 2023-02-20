@@ -2,6 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
@@ -17,7 +18,17 @@ public class Parser {
     }
     public static Map<String, Object> fileToMap(String filePath) throws Exception {
         Path fullPath = pathToFullPath(filePath);
-        return jsonToMap(fullPath);
+        Map<String, Object> file = null;
+        if (filePath.endsWith(".json")) {
+            file = jsonToMap(fullPath);
+        } else if (filePath.endsWith(".yml")) {
+            file = yamlToMap(fullPath);
+        }
+        return  file;
+    }
+    public static Map<String, Object> yamlToMap(Path path) throws Exception {
+        ObjectMapper mapper = new YAMLMapper();
+        return mapper.readValue(readString(path), new TypeReference<>() { });
     }
     public static Map<String, Object> jsonToMap(Path path) throws Exception {
         ObjectMapper mapper = new ObjectMapper();

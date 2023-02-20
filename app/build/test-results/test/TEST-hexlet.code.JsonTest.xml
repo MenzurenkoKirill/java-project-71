@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="hexlet.code.JsonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-19T17:25:49" hostname="DESKTOP-J7D66N2" time="0.695">
+<testsuite name="hexlet.code.JsonTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-02-20T17:20:17" hostname="DESKTOP-J7D66N2" time="0.943">
   <properties/>
-  <testcase name="generateTest()" classname="hexlet.code.JsonTest" time="0.695"/>
+  <testcase name="generateTestYml()" classname="hexlet.code.JsonTest" time="0.935"/>
+  <testcase name="generateTestJson()" classname="hexlet.code.JsonTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
