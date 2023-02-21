@@ -3,18 +3,27 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import hexlet.code.formatters.Stylish;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
-import static hexlet.code.Json.jsonFormat;
 import static java.nio.file.Files.readString;
 
 public class Parser {
-    public static String generate(String path1, String path2) throws Exception {
+    public static String generate(String path1, String path2, String format) throws Exception {
         Map<String, Object> map1 = fileToMap(path1);
         Map<String, Object> map2 = fileToMap(path2);
-        return jsonFormat(map1, map2);
+        int count = 0;
+        return switch (format) {
+            case "stylish" -> Stylish.formatStylish(map1, map2, count);
+            case  "json" -> Json.jsonFormat(map1, map2);
+            default -> "Output format error, check method argument";
+        };
+    }
+    public static String generate(String path1, String path2) throws Exception {
+        return generate(path1, path2, "stylish");
     }
     public static Map<String, Object> fileToMap(String filePath) throws Exception {
         Path fullPath = pathToFullPath(filePath);

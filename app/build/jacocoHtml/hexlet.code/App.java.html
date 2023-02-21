@@ -14,16 +14,16 @@ import static hexlet.code.Parser.generate;
         mixinStandardHelpOptions = true,
         description = &quot;Compares two configuration files and shows a difference.&quot;,
         version = &quot;gendiff 1.0&quot;
-        //sortOptions = false
 )
-<span class="nc" id="L19">public class App implements Callable&lt;String&gt; {</span>
-    @Option(names = {&quot;-f&quot;, &quot;--format&quot;}, paramLabel = &quot;format&quot;,
-            description = &quot;output format [default: stylish]&quot;)
-    String format;
-    @Parameters(paramLabel = &quot;filepath1&quot;, description = &quot;path to first file&quot;)
-    String filepath1;
-    @Parameters(paramLabel = &quot;filepath2&quot;, description = &quot;path to second file&quot;)
-    String filepath2;
+<span class="nc" id="L18">public class App implements Callable&lt;String&gt; {</span>
+<span class="nc" id="L19">    @Option(names = {&quot;-f&quot;, &quot;--format&quot;}, paramLabel = &quot;format&quot;,</span>
+            description = &quot;output format \&quot;stylish\&quot; or \&quot;plain\&quot; or \&quot;json\&quot;&quot;
+                    + &quot; [default: stylish]&quot;)
+    private String format = &quot;stylish&quot;;
+    @Parameters(index = &quot;0&quot;, paramLabel = &quot;filepath1&quot;, description = &quot;path to first file&quot;)
+    private String filepath1;
+    @Parameters(index = &quot;1&quot;, paramLabel = &quot;filepath2&quot;, description = &quot;path to second file&quot;)
+    private String filepath2;
     @Option(names = {&quot;-h&quot;, &quot;--help&quot;}, usageHelp = true, description = &quot;Show this @|fg(30) help|@ message and exit.&quot;)
     boolean versionHelpRequested;
     @Option(names = {&quot;-V&quot;, &quot;--version&quot;}, versionHelp = true, description = &quot;Print version information and exit.&quot;)

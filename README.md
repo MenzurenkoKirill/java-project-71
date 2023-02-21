@@ -3,3 +3,4 @@
 <a href="https://codeclimate.com/github/MenzurenkoKirill/java-project-71/maintainability"><img src="https://api.codeclimate.com/v1/badges/2f86a3797ce1b237f28a/maintainability" /></a>
 <a href="https://codeclimate.com/github/MenzurenkoKirill/java-project-71/test_coverage"><img src="https://api.codeclimate.com/v1/badges/2f86a3797ce1b237f28a/test_coverage" /></a>
 <a href="https://asciinema.org/a/thz8mEU0cyqVlMX9Yeudlg65J" target="_blank"><img src="https://asciinema.org/a/thz8mEU0cyqVlMX9Yeudlg65J.svg" /></a>
+<a href="https://asciinema.org/a/0KtuhNHsqHGeJAZbtrpKA6BT9" target="_blank"><img src="https://asciinema.org/a/0KtuhNHsqHGeJAZbtrpKA6BT9.svg" /></a>

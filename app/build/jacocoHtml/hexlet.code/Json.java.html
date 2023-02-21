@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
     public static boolean differ(Map&lt;String, Object&gt; file1, Map&lt;String, Object&gt; file2, String key) throws Exception {
 <span class="fc" id="L32">        Object obj1 = file1.get(key);</span>
 <span class="fc" id="L33">        Object obj2 = file2.get(key);</span>
-<span class="pc bpc" id="L34" title="4 of 8 branches missed.">        return (obj1 == null || obj2 == null ? obj1 != obj2 : !obj1.equals(obj2));</span>
+<span class="pc bpc" id="L34" title="1 of 8 branches missed.">        return (obj1 == null || obj2 == null ? obj1 != obj2 : !obj1.equals(obj2));</span>
     }
     public static Set&lt;String&gt; getSortedKeys(Map&lt;String, Object&gt; map1, Map&lt;String, Object&gt; map2) throws Exception {
 <span class="fc" id="L37">        Set&lt;String&gt; keys1 = keysFromMap(map1);</span>
