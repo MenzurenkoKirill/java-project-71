@@ -3,6 +3,7 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 
 import java.io.File;
@@ -19,6 +20,7 @@ public class Parser {
         return switch (format) {
             case "stylish" -> Stylish.formatStylish(map1, map2, count);
             case  "json" -> Json.jsonFormat(map1, map2);
+            case  "plain" -> Plain.formatStylish(map1, map2);
             default -> "Output format error, check method argument";
         };
     }

@@ -29,7 +29,7 @@ public class App implements Callable<String> {
     boolean versionInfoRequested;
     @Override
     public String call() throws Exception {
-        System.out.println(generate(filepath1, filepath2));
+        System.out.println(generate(filepath1, filepath2, format));
         return "method call() is working";
     }
     public static void main(String[] args) {

@@ -11,22 +11,22 @@ import java.util.stream.Collectors;
 
 <span class="nc" id="L12">public class Json {</span>
     public static String jsonFormat(Map&lt;String, Object&gt; map1, Map&lt;String, Object&gt; map2) throws Exception {
-<span class="fc" id="L14">        Set&lt;String&gt; allKeys = getSortedKeys(map1, map2);</span>
-<span class="fc" id="L15">        Map&lt;String, Object&gt; result = new LinkedHashMap&lt;&gt;();</span>
-<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (String key : allKeys) {</span>
-<span class="fc bfc" id="L17" title="All 4 branches covered.">            if (map1.containsKey(key) &amp;&amp; !map2.containsKey(key)) {</span>
-<span class="fc" id="L18">                result.put(&quot;- &quot; + key, map1.get(key));</span>
-<span class="pc bpc" id="L19" title="1 of 4 branches missed.">            } else if (!map1.containsKey(key) &amp;&amp; map2.containsKey(key)) {</span>
-<span class="fc" id="L20">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">            } else if (differ(map1, map2, key)) {</span>
-<span class="fc" id="L22">                result.put(&quot;- &quot; + key, map1.get(key));</span>
-<span class="fc" id="L23">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
+<span class="nc" id="L14">        Set&lt;String&gt; allKeys = getSortedKeys(map1, map2);</span>
+<span class="nc" id="L15">        Map&lt;String, Object&gt; result = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        for (String key : allKeys) {</span>
+<span class="nc bnc" id="L17" title="All 4 branches missed.">            if (map1.containsKey(key) &amp;&amp; !map2.containsKey(key)) {</span>
+<span class="nc" id="L18">                result.put(&quot;- &quot; + key, map1.get(key));</span>
+<span class="nc bnc" id="L19" title="All 4 branches missed.">            } else if (!map1.containsKey(key) &amp;&amp; map2.containsKey(key)) {</span>
+<span class="nc" id="L20">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">            } else if (differ(map1, map2, key)) {</span>
+<span class="nc" id="L22">                result.put(&quot;- &quot; + key, map1.get(key));</span>
+<span class="nc" id="L23">                result.put(&quot;+ &quot; + key, map2.get(key));</span>
             } else {
-<span class="fc" id="L25">                result.put(&quot;  &quot; + key, map2.get(key));</span>
+<span class="nc" id="L25">                result.put(&quot;  &quot; + key, map2.get(key));</span>
             }
-<span class="fc" id="L27">        }</span>
-<span class="fc" id="L28">        ObjectMapper mapper = new ObjectMapper();</span>
-<span class="fc" id="L29">        return mapper.writeValueAsString(result);</span>
+<span class="nc" id="L27">        }</span>
+<span class="nc" id="L28">        ObjectMapper mapper = new ObjectMapper();</span>
+<span class="nc" id="L29">        return mapper.writeValueAsString(result);</span>
     }
     public static boolean differ(Map&lt;String, Object&gt; file1, Map&lt;String, Object&gt; file2, String key) throws Exception {
 <span class="fc" id="L32">        Object obj1 = file1.get(key);</span>

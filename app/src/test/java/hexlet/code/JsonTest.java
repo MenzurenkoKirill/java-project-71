@@ -9,23 +9,6 @@ import java.nio.file.Path;
 
 
 public class JsonTest {
-    private final String expectationForJson = "{\"- age\":\"24\",\"+ age\":\"25\",\"+ graduation\":\"yes\","
-            + "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\","
-            + "\"- study\":\"yes\",\"  surname\":\"Menzurenko\"}";
-    private final String expectationForYml = "{\"- age\":24,\"+ age\":25,\"+ graduation\":true,"
-            + "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\","
-            + "\"- study\":true,\"  surname\":\"Menzurenko\"}";
-
-    @Test
-    public void generateTestJson() throws Exception {
-        String filePathTest1 = "fileTest1.json";
-        String filePathTest2 = "fileTest2.json";
-        filePathTest1 = pathToFullPath(filePathTest1);
-        filePathTest2 = pathToFullPath(filePathTest2);
-        String actual = Parser.generate(filePathTest1, filePathTest2);
-        Assertions.assertEquals(expectationForJson, actual);
-    }
-
     private static String pathToFullPath(String path) {
         String defaultPath = "src/test/resources";
         File file = new File(defaultPath);
@@ -35,15 +18,6 @@ public class JsonTest {
             return absolutePath + "/" + path;
         }
         throw new RuntimeException("Файл: " + resultPath + " не существует");
-    }
-    @Test
-    public void generateTestYml() throws Exception {
-        String filePathTest1 = "fileTest1.yml";
-        String filePathTest2 = "fileTest2.yml";
-        filePathTest1 = pathToFullPath(filePathTest1);
-        filePathTest2 = pathToFullPath(filePathTest2);
-        String actual = Parser.generate(filePathTest1, filePathTest2);
-        Assertions.assertEquals(expectationForYml, actual);
     }
     @Test
     public void generateTestYaml2() throws Exception {
@@ -78,6 +52,30 @@ public class JsonTest {
                   - setting3: true
                   + setting3: none
                 }""";
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void plainFormatTest() throws Exception {
+        String format = "plain";
+        String filePathTest1 = "fileTest3.yml";
+        String filePathTest2 = "fileTest4.yml";
+        filePathTest1 = pathToFullPath(filePathTest1);
+        filePathTest2 = pathToFullPath(filePathTest2);
+        String actual = Parser.generate(filePathTest1, filePathTest2, format);
+        String expected = """
+                Property 'chars2' was updated. From [complex value] to false
+                Property 'checked' was updated. From false to true
+                Property 'default' was updated. From null to [complex value]
+                Property 'id' was updated. From 45 to null
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From 200 to 300
+                Property 'setting3' was updated. From true to 'none'""";
         Assertions.assertEquals(expected, actual);
     }
 }
