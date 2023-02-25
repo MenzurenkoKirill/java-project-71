@@ -1,27 +1,33 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Json;
+import hexlet.code.Differ;
 
 import java.util.Map;
 import java.util.Set;
 
 public class Plain {
-    public static String formatStylish(Map<String, Object> map1, Map<String, Object> map2) throws Exception {
-        Set<String> allKeys = Json.getSortedKeys(map1, map2);
+    public static String formatPlain(Map<String, Object> firstMap, Map<String, Object> secondMap) throws Exception {
+        Set<String> allKeys = Differ.getAllSortedKeys(firstMap, secondMap);
         final StringBuilder sb = new StringBuilder();
         for (String key : allKeys) {
-            if (map1.containsKey(key) && !map2.containsKey(key)) {
-                sb.append("Property '").append(key).append("' was removed").append("\n");
-            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
-                sb.append("Property '").append(key).append("' was added with value: ").append(getValue(map2, key))
+            if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
+                sb.append("Property '")
+                        .append(key)
+                        .append("' was removed")
                         .append("\n");
-            } else if (Json.differ(map1, map2, key)) {
+            } else if (!firstMap.containsKey(key) && secondMap.containsKey(key)) {
+                sb.append("Property '")
+                        .append(key)
+                        .append("' was added with value: ")
+                        .append(getValue(secondMap, key))
+                        .append("\n");
+            } else if (Differ.differ(firstMap, secondMap, key)) {
                 sb.append("Property '")
                         .append(key)
                         .append("' was updated. From ")
-                        .append(getValue(map1, key))
+                        .append(getValue(firstMap, key))
                         .append(" to ")
-                        .append(getValue(map2, key))
+                        .append(getValue(secondMap, key))
                         .append("\n");
             }
         }

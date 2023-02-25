@@ -2,9 +2,11 @@
 <checkstyle version="8.37">
 <file name="/home/kirill/project2/app/src/main/java/hexlet/code/App.java">
 </file>
-<file name="/home/kirill/project2/app/src/main/java/hexlet/code/Json.java">
+<file name="/home/kirill/project2/app/src/main/java/hexlet/code/Differ.java">
 </file>
 <file name="/home/kirill/project2/app/src/main/java/hexlet/code/Parser.java">
+</file>
+<file name="/home/kirill/project2/app/src/main/java/hexlet/code/formatters/Json.java">
 </file>
 <file name="/home/kirill/project2/app/src/main/java/hexlet/code/formatters/Plain.java">
 </file>

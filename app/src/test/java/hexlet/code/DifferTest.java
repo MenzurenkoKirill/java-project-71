@@ -7,9 +7,42 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Path;
 
+import static hexlet.code.Parser.generate;
 
-public class JsonTest {
-    private static String pathToFullPath(String path) {
+
+public class DifferTest {
+    private static String expectedTest = """
+            {
+              - age: 24
+              + age: 25
+              + graduation: true
+                name: Kirill
+              - post: design engineer
+              + post: java programmer
+              - study: true
+                surname: Menzurenko
+            }""";
+
+    @Test
+    public void generateTestJson() throws Exception {
+        String nameFirstFile = "fileTest1.json";
+        String nameSecondFile = "fileTest2.json";
+        nameFirstFile = getToFullPath(nameFirstFile);
+        nameSecondFile = getToFullPath(nameSecondFile);
+        String actual = generate(nameFirstFile, nameSecondFile);
+        Assertions.assertEquals(expectedTest, actual);
+    }
+
+    @Test
+    public void generateTestYaml() throws Exception {
+        String nameFirstFile = "fileTest1.yml";
+        String nameSecondFile = "fileTest2.yml";
+        nameFirstFile = getToFullPath(nameFirstFile);
+        nameSecondFile = getToFullPath(nameSecondFile);
+        String actual = generate(nameFirstFile, nameSecondFile);
+        Assertions.assertEquals(expectedTest, actual);
+    }
+    private static String getToFullPath(String path) {
         String defaultPath = "src/test/resources";
         File file = new File(defaultPath);
         String absolutePath = file.getAbsolutePath();
@@ -23,9 +56,9 @@ public class JsonTest {
     public void generateTestYaml2() throws Exception {
         String filePathTest1 = "fileTest3.yml";
         String filePathTest2 = "fileTest4.yml";
-        filePathTest1 = pathToFullPath(filePathTest1);
-        filePathTest2 = pathToFullPath(filePathTest2);
-        String actual = Parser.generate(filePathTest1, filePathTest2);
+        filePathTest1 = getToFullPath(filePathTest1);
+        filePathTest2 = getToFullPath(filePathTest2);
+        String actual = generate(filePathTest1, filePathTest2);
         String expected = """
                 {
                     chars1: [a, b, c]
@@ -59,9 +92,9 @@ public class JsonTest {
         String format = "plain";
         String filePathTest1 = "fileTest3.yml";
         String filePathTest2 = "fileTest4.yml";
-        filePathTest1 = pathToFullPath(filePathTest1);
-        filePathTest2 = pathToFullPath(filePathTest2);
-        String actual = Parser.generate(filePathTest1, filePathTest2, format);
+        filePathTest1 = getToFullPath(filePathTest1);
+        filePathTest2 = getToFullPath(filePathTest2);
+        String actual = generate(filePathTest1, filePathTest2, format);
         String expected = """
                 Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
@@ -76,6 +109,20 @@ public class JsonTest {
                 Property 'setting1' was updated. From 'Some value' to 'Another value'
                 Property 'setting2' was updated. From 200 to 300
                 Property 'setting3' was updated. From true to 'none'""";
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void generateTestJsonToJson() throws Exception {
+        String expected = "{\"- age\":\"24\",\"+ age\":\"25\",\"+ graduation\":\"true\","
+                + "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\","
+                + "\"- study\":\"true\",\"  surname\":\"Menzurenko\"}";
+        String formatName = "json";
+        String nameFirstFile = "fileTest1.json";
+        String nameSecondFile = "fileTest2.json";
+        nameFirstFile = getToFullPath(nameFirstFile);
+        nameSecondFile = getToFullPath(nameSecondFile);
+        String actual = generate(nameFirstFile, nameSecondFile, formatName);
         Assertions.assertEquals(expected, actual);
     }
 }

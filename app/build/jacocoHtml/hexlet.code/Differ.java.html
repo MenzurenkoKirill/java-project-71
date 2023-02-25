@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Differ.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">hexlet.code</a> &gt; <span class="el_source">Differ.java</span></div><h1>Differ.java</h1><pre class="source lang-java linenums">package hexlet.code;
+
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
+<span class="nc" id="L9">public class Differ {</span>
+    public static boolean differ(Map&lt;String, Object&gt; firstMapForComparison, Map&lt;String, Object&gt; secondMapForComparison,
+                                 String comparisonKey) throws Exception {
+<span class="fc" id="L12">        Object objectOfTheFirstComparedMap = firstMapForComparison.get(comparisonKey);</span>
+<span class="fc" id="L13">        Object objectOfTheSecondComparedMap = secondMapForComparison.get(comparisonKey);</span>
+<span class="fc bfc" id="L14" title="All 4 branches covered.">        return (objectOfTheFirstComparedMap == null || objectOfTheSecondComparedMap == null</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">                ? objectOfTheFirstComparedMap != objectOfTheSecondComparedMap : !objectOfTheFirstComparedMap.</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">                equals(objectOfTheSecondComparedMap));</span>
+    }
+    public static Set&lt;String&gt; getAllSortedKeys(Map&lt;String, Object&gt; firstMapWithNecessaryKeys,
+                                               Map&lt;String, Object&gt; secondMapWithNecessaryKeys) throws Exception {
+<span class="fc" id="L20">        Set&lt;String&gt; allKeysFromFirstMap = getAllKeysFromMap(firstMapWithNecessaryKeys);</span>
+<span class="fc" id="L21">        Set&lt;String&gt; allKeysFromSecondMap = getAllKeysFromMap(secondMapWithNecessaryKeys);</span>
+<span class="fc" id="L22">        allKeysFromFirstMap.addAll(allKeysFromSecondMap);</span>
+<span class="fc" id="L23">        return allKeysFromFirstMap.stream()</span>
+<span class="fc" id="L24">                .sorted()</span>
+<span class="fc" id="L25">                .collect(Collectors.toCollection(LinkedHashSet::new));</span>
+    }
+    public static Set&lt;String&gt; getAllKeysFromMap(Map&lt;String, Object&gt; map) {
+<span class="fc" id="L28">        Set&lt;String&gt; result = new HashSet&lt;&gt;();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L30">            return result;</span>
+        }
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        for (Map.Entry&lt;String, Object&gt; keys : map.entrySet()) {</span>
+<span class="fc" id="L33">            result.add(keys.getKey());</span>
+<span class="fc" id="L34">        }</span>
+<span class="fc" id="L35">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
+import hexlet.code.formatters.Json;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -12,51 +13,51 @@ import java.util.Map;
 
 import static java.nio.file.Files.readString;
 
-<span class="nc" id="L15">public class Parser {</span>
-    public static String generate(String path1, String path2, String format) throws Exception {
-<span class="fc" id="L17">        Map&lt;String, Object&gt; map1 = fileToMap(path1);</span>
-<span class="fc" id="L18">        Map&lt;String, Object&gt; map2 = fileToMap(path2);</span>
-<span class="fc" id="L19">        int count = 0;</span>
-<span class="pc bpc" id="L20" title="2 of 4 branches missed.">        return switch (format) {</span>
-<span class="fc" id="L21">            case &quot;stylish&quot; -&gt; Stylish.formatStylish(map1, map2, count);</span>
-<span class="nc" id="L22">            case  &quot;json&quot; -&gt; Json.jsonFormat(map1, map2);</span>
-<span class="fc" id="L23">            case  &quot;plain&quot; -&gt; Plain.formatStylish(map1, map2);</span>
-<span class="nc" id="L24">            default -&gt; &quot;Output format error, check method argument&quot;;</span>
+<span class="nc" id="L16">public class Parser {</span>
+    public static String generate(String firstFileName, String secondFileName, String formatName) throws Exception {
+<span class="fc" id="L18">        Map&lt;String, Object&gt; firstFileMap = convertFileToMap(firstFileName);</span>
+<span class="fc" id="L19">        Map&lt;String, Object&gt; secondFileMap = convertFileToMap(secondFileName);</span>
+<span class="fc" id="L20">        int count = 0;</span>
+<span class="pc bpc" id="L21" title="1 of 4 branches missed.">        return switch (formatName) {</span>
+<span class="fc" id="L22">            case &quot;stylish&quot; -&gt; Stylish.formatStylish(firstFileMap, secondFileMap, count);</span>
+<span class="fc" id="L23">            case &quot;json&quot; -&gt; Json.formatJson(firstFileMap, secondFileMap);</span>
+<span class="fc" id="L24">            case &quot;plain&quot; -&gt; Plain.formatPlain(firstFileMap, secondFileMap);</span>
+<span class="nc" id="L25">            default -&gt; &quot;Output format error, check method argument&quot;;</span>
         };
     }
-    public static String generate(String path1, String path2) throws Exception {
-<span class="fc" id="L28">        return generate(path1, path2, &quot;stylish&quot;);</span>
+    public static String generate(String firstFileName, String secondFileName) throws Exception {
+<span class="fc" id="L29">        return generate(firstFileName, secondFileName, &quot;stylish&quot;);</span>
     }
-    public static Map&lt;String, Object&gt; fileToMap(String filePath) throws Exception {
-<span class="fc" id="L31">        Path fullPath = pathToFullPath(filePath);</span>
-<span class="fc" id="L32">        Map&lt;String, Object&gt; file = null;</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (filePath.endsWith(&quot;.json&quot;)) {</span>
-<span class="nc" id="L34">            file = jsonToMap(fullPath);</span>
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        } else if (filePath.endsWith(&quot;.yml&quot;)) {</span>
-<span class="fc" id="L36">            file = yamlToMap(fullPath);</span>
+    public static Map&lt;String, Object&gt; convertFileToMap(String filePath) throws Exception {
+<span class="fc" id="L32">        Path fullFilePath = getToFullPath(filePath);</span>
+<span class="fc" id="L33">        Map&lt;String, Object&gt; file = null;</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (filePath.endsWith(&quot;.json&quot;)) {</span>
+<span class="fc" id="L35">            file = convertJsonToMap(fullFilePath);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        } else if (filePath.endsWith(&quot;.yml&quot;)) {</span>
+<span class="fc" id="L37">            file = convertYamlToMap(fullFilePath);</span>
         }
-<span class="fc" id="L38">        return  file;</span>
+<span class="fc" id="L39">        return  file;</span>
     }
-    public static Map&lt;String, Object&gt; yamlToMap(Path path) throws Exception {
-<span class="fc" id="L41">        ObjectMapper mapper = new YAMLMapper();</span>
-<span class="fc" id="L42">        return mapper.readValue(readString(path), new TypeReference&lt;&gt;() { });</span>
+    private static Map&lt;String, Object&gt; convertYamlToMap(Path fullFilePath) throws Exception {
+<span class="fc" id="L42">        ObjectMapper mapper = new YAMLMapper();</span>
+<span class="fc" id="L43">        return mapper.readValue(readString(fullFilePath), new TypeReference&lt;&gt;() { });</span>
     }
-    public static Map&lt;String, Object&gt; jsonToMap(Path path) throws Exception {
-<span class="nc" id="L45">        ObjectMapper mapper = new ObjectMapper();</span>
-<span class="nc" id="L46">        return mapper.readValue(readString(path), new TypeReference&lt;Map&lt;String, Object&gt;&gt;() { });</span>
+    private static Map&lt;String, Object&gt; convertJsonToMap(Path fullFilePath) throws Exception {
+<span class="fc" id="L46">        ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L47">        return mapper.readValue(readString(fullFilePath), new TypeReference&lt;Map&lt;String, Object&gt;&gt;() { });</span>
     }
-    public static Path pathToFullPath(String path) throws Exception {
-<span class="fc" id="L49">        String defaultPath = &quot;src/main/resources&quot;;</span>
-<span class="fc" id="L50">        File file = new File(defaultPath);</span>
-<span class="fc" id="L51">        String absolutePath = file.getAbsolutePath();</span>
-<span class="fc" id="L52">        Path resultPath = Path.of(path);</span>
-<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (!path.startsWith(&quot;/&quot;)) {</span>
-<span class="nc" id="L54">            resultPath = Path.of(absolutePath + &quot;/&quot; + path);</span>
+    private static Path getToFullPath(String filePath) throws Exception {
+<span class="fc" id="L50">        String defaultPath = &quot;src/main/resources&quot;;</span>
+<span class="fc" id="L51">        File file = new File(defaultPath);</span>
+<span class="fc" id="L52">        String absolutePathForFile = file.getAbsolutePath();</span>
+<span class="fc" id="L53">        Path resultPath = Path.of(filePath);</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (!filePath.startsWith(&quot;/&quot;)) {</span>
+<span class="nc" id="L55">            resultPath = Path.of(absolutePathForFile + &quot;/&quot; + filePath);</span>
         }
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (new File(resultPath.toString()).exists()) {</span>
-<span class="fc" id="L57">            return resultPath;</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (new File(resultPath.toString()).exists()) {</span>
+<span class="fc" id="L58">            return resultPath;</span>
         }
-<span class="nc" id="L59">        throw new RuntimeException(&quot;Файл: &quot; + resultPath + &quot; не существует&quot;);</span>
+<span class="nc" id="L60">        throw new RuntimeException(&quot;Файл: &quot; + resultPath + &quot; не существует&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

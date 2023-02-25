@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
+import hexlet.code.formatters.Json;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -13,45 +14,45 @@ import java.util.Map;
 import static java.nio.file.Files.readString;
 
 public class Parser {
-    public static String generate(String path1, String path2, String format) throws Exception {
-        Map<String, Object> map1 = fileToMap(path1);
-        Map<String, Object> map2 = fileToMap(path2);
+    public static String generate(String firstFileName, String secondFileName, String formatName) throws Exception {
+        Map<String, Object> firstFileMap = convertFileToMap(firstFileName);
+        Map<String, Object> secondFileMap = convertFileToMap(secondFileName);
         int count = 0;
-        return switch (format) {
-            case "stylish" -> Stylish.formatStylish(map1, map2, count);
-            case  "json" -> Json.jsonFormat(map1, map2);
-            case  "plain" -> Plain.formatStylish(map1, map2);
+        return switch (formatName) {
+            case "stylish" -> Stylish.formatStylish(firstFileMap, secondFileMap, count);
+            case "json" -> Json.formatJson(firstFileMap, secondFileMap);
+            case "plain" -> Plain.formatPlain(firstFileMap, secondFileMap);
             default -> "Output format error, check method argument";
         };
     }
-    public static String generate(String path1, String path2) throws Exception {
-        return generate(path1, path2, "stylish");
+    public static String generate(String firstFileName, String secondFileName) throws Exception {
+        return generate(firstFileName, secondFileName, "stylish");
     }
-    public static Map<String, Object> fileToMap(String filePath) throws Exception {
-        Path fullPath = pathToFullPath(filePath);
+    public static Map<String, Object> convertFileToMap(String filePath) throws Exception {
+        Path fullFilePath = getToFullPath(filePath);
         Map<String, Object> file = null;
         if (filePath.endsWith(".json")) {
-            file = jsonToMap(fullPath);
+            file = convertJsonToMap(fullFilePath);
         } else if (filePath.endsWith(".yml")) {
-            file = yamlToMap(fullPath);
+            file = convertYamlToMap(fullFilePath);
         }
         return  file;
     }
-    public static Map<String, Object> yamlToMap(Path path) throws Exception {
+    private static Map<String, Object> convertYamlToMap(Path fullFilePath) throws Exception {
         ObjectMapper mapper = new YAMLMapper();
-        return mapper.readValue(readString(path), new TypeReference<>() { });
+        return mapper.readValue(readString(fullFilePath), new TypeReference<>() { });
     }
-    public static Map<String, Object> jsonToMap(Path path) throws Exception {
+    private static Map<String, Object> convertJsonToMap(Path fullFilePath) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(readString(path), new TypeReference<Map<String, Object>>() { });
+        return mapper.readValue(readString(fullFilePath), new TypeReference<Map<String, Object>>() { });
     }
-    public static Path pathToFullPath(String path) throws Exception {
+    private static Path getToFullPath(String filePath) throws Exception {
         String defaultPath = "src/main/resources";
         File file = new File(defaultPath);
-        String absolutePath = file.getAbsolutePath();
-        Path resultPath = Path.of(path);
-        if (!path.startsWith("/")) {
-            resultPath = Path.of(absolutePath + "/" + path);
+        String absolutePathForFile = file.getAbsolutePath();
+        Path resultPath = Path.of(filePath);
+        if (!filePath.startsWith("/")) {
+            resultPath = Path.of(absolutePathForFile + "/" + filePath);
         }
         if (new File(resultPath.toString()).exists()) {
             return resultPath;
