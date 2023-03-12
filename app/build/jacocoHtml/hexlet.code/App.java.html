@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Parser.generate;
+import static hexlet.code.Differ.generate;
 
 @Command(
         name = &quot;gendiff&quot;,
@@ -15,8 +15,10 @@ import static hexlet.code.Parser.generate;
         description = &quot;Compares two configuration files and shows a difference.&quot;,
         version = &quot;gendiff 1.0&quot;
 )
-<span class="nc" id="L18">public class App implements Callable&lt;String&gt; {</span>
-<span class="nc" id="L19">    @Option(names = {&quot;-f&quot;, &quot;--format&quot;}, paramLabel = &quot;format&quot;,</span>
+<span class="nc" id="L18">public class App implements Callable&lt;Integer&gt; {</span>
+    private static final int SUCCESS = 0;
+    private static final int ERROR = 2;
+<span class="nc" id="L21">    @Option(names = {&quot;-f&quot;, &quot;--format&quot;}, paramLabel = &quot;format&quot;,</span>
             description = &quot;output format [default: stylish]&quot;)
     private String format = &quot;stylish&quot;;
     @Parameters(index = &quot;0&quot;, paramLabel = &quot;filepath1&quot;, description = &quot;path to first file&quot;)
@@ -28,13 +30,17 @@ import static hexlet.code.Parser.generate;
     @Option(names = {&quot;-V&quot;, &quot;--version&quot;}, versionHelp = true, description = &quot;Print version information and exit.&quot;)
     boolean versionInfoRequested;
     @Override
-    public String call() throws Exception {
-<span class="nc" id="L32">        System.out.println(generate(filepath1, filepath2, format));</span>
-<span class="nc" id="L33">        return &quot;method call() is working&quot;;</span>
+    public Integer call() throws Exception {
+        try {
+<span class="nc" id="L35">            System.out.println(generate(filepath1, filepath2, format));</span>
+<span class="nc" id="L36">            return SUCCESS;</span>
+<span class="nc" id="L37">        } catch (Exception e) {</span>
+<span class="nc" id="L38">            return ERROR;</span>
+        }
     }
     public static void main(String[] args) {
-<span class="nc" id="L36">        int exitCode = new CommandLine(new App()).execute(args);</span>
-<span class="nc" id="L37">        System.exit(exitCode);</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L42">        int exitCode = new CommandLine(new App()).execute(args);</span>
+<span class="nc" id="L43">        System.exit(exitCode);</span>
+<span class="nc" id="L44">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

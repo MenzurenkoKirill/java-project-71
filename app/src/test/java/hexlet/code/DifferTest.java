@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Path;
 
-import static hexlet.code.Parser.generate;
+import static hexlet.code.Differ.generate;
 
 
 public class DifferTest {
@@ -114,9 +114,13 @@ public class DifferTest {
 
     @Test
     public void generateTestJsonToJson() throws Exception {
-        String expected = "{\"- age\":\"24\",\"+ age\":\"25\",\"+ graduation\":\"true\","
-                + "\"  name\":\"Kirill\",\"- post\":\"design engineer\",\"+ post\":\"java programmer\","
-                + "\"- study\":\"true\",\"  surname\":\"Menzurenko\"}";
+        String expected = "[{\"typeOfChange\":\"changed\",\"key\":\"age\",\"oldValue\":\"24\",\"newValue\":\"25\"},"
+                + "{\"typeOfChange\":\"added\",\"key\":\"graduation\",\"oldValue\":null,\"newValue\":\"true\"},"
+                + "{\"typeOfChange\":\"unchanged\",\"key\":\"name\",\"oldValue\":\"Kirill\",\"newValue\":\"Kirill\"},"
+                + "{\"typeOfChange\":\"changed\",\"key\":\"post\",\"oldValue\":\"design engineer\",\"newValue\":"
+                + "\"java programmer\"},{\"typeOfChange\":\"deleted\",\"key\":\"study\",\"oldValue\":\"true\","
+                + "\"newValue\":null},{\"typeOfChange\":\"unchanged\",\"key\":\"surname\",\"oldValue\":"
+                + "\"Menzurenko\",\"newValue\":\"Menzurenko\"}]";
         String formatName = "json";
         String nameFirstFile = "fileTest1.json";
         String nameSecondFile = "fileTest2.json";

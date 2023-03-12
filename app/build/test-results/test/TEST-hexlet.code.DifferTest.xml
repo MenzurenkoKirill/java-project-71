@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="hexlet.code.DifferTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-02-25T16:28:05" hostname="DESKTOP-J7D66N2" time="0.976">
+<testsuite name="hexlet.code.DifferTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-03-12T12:39:21" hostname="DESKTOP-J7D66N2" time="0.87">
   <properties/>
-  <testcase name="plainFormatTest()" classname="hexlet.code.DifferTest" time="0.915"/>
+  <testcase name="plainFormatTest()" classname="hexlet.code.DifferTest" time="0.756"/>
   <testcase name="generateTestJson()" classname="hexlet.code.DifferTest" time="0.009"/>
-  <testcase name="generateTestYaml()" classname="hexlet.code.DifferTest" time="0.007"/>
-  <testcase name="generateTestJsonToJson()" classname="hexlet.code.DifferTest" time="0.029"/>
-  <testcase name="generateTestYaml2()" classname="hexlet.code.DifferTest" time="0.01"/>
+  <testcase name="generateTestYaml()" classname="hexlet.code.DifferTest" time="0.005"/>
+  <testcase name="generateTestJsonToJson()" classname="hexlet.code.DifferTest" time="0.088"/>
+  <testcase name="generateTestYaml2()" classname="hexlet.code.DifferTest" time="0.008"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Parser.generate;
+import static hexlet.code.Differ.generate;
 
 @Command(
         name = "gendiff",
@@ -15,7 +15,9 @@ import static hexlet.code.Parser.generate;
         description = "Compares two configuration files and shows a difference.",
         version = "gendiff 1.0"
 )
-public class App implements Callable<String> {
+public class App implements Callable<Integer> {
+    private static final int SUCCESS = 0;
+    private static final int ERROR = 2;
     @Option(names = {"-f", "--format"}, paramLabel = "format",
             description = "output format [default: stylish]")
     private String format = "stylish";
@@ -28,9 +30,13 @@ public class App implements Callable<String> {
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     boolean versionInfoRequested;
     @Override
-    public String call() throws Exception {
-        System.out.println(generate(filepath1, filepath2, format));
-        return "method call() is working";
+    public Integer call() throws Exception {
+        try {
+            System.out.println(generate(filepath1, filepath2, format));
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
     }
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);

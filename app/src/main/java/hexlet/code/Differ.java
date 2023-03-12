@@ -1,12 +1,31 @@
 package hexlet.code;
 
+import hexlet.code.formatters.Json;
+import hexlet.code.formatters.Plain;
+import hexlet.code.formatters.Stylish;
+
+
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import static hexlet.code.Parser.convertFileToMap;
+import static hexlet.code.Distinctions.differenceList;
+
 public class Differ {
+    public static String generate(String firstFileNameForConvert, String secondFileNameForConvert, String formatName)
+            throws Exception {
+        Map<String, Object> firstFileMapForGenerate = convertFileToMap(firstFileNameForConvert);
+        Map<String, Object> secondFileMapForGenerate = convertFileToMap(secondFileNameForConvert);
+        List<Link> mapsDifference = differenceList(firstFileMapForGenerate, secondFileMapForGenerate);
+        return formatSelectionForConvert(mapsDifference, formatName);
+    }
+    public static String generate(String firstFileName, String secondFileName) throws Exception {
+        return generate(firstFileName, secondFileName, "stylish");
+    }
     public static boolean differ(Map<String, Object> firstMapForComparison, Map<String, Object> secondMapForComparison,
                                  String comparisonKey) throws Exception {
         Object objectOfTheFirstComparedMap = firstMapForComparison.get(comparisonKey);
@@ -33,5 +52,13 @@ public class Differ {
             result.add(keys.getKey());
         }
         return result;
+    }
+    private static String formatSelectionForConvert(List<Link> mapsDifference, String formatName) throws Exception {
+        return switch (formatName) {
+            case "stylish" -> Stylish.formatStylish(mapsDifference);
+            case "json" -> Json.formatJson(mapsDifference);
+            case "plain" -> Plain.formatPlain(mapsDifference);
+            default -> "Output format error, check method argument";
+        };
     }
 }
