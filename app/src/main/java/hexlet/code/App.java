@@ -15,7 +15,7 @@ import static hexlet.code.Differ.generate;
         description = "Compares two configuration files and shows a difference.",
         version = "gendiff 1.0"
 )
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
     private static final int SUCCESS = 0;
     private static final int ERROR = 2;
     @Option(names = {"-f", "--format"}, paramLabel = "format",
@@ -26,9 +26,9 @@ public class App implements Callable<Integer> {
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this @|fg(30) help|@ message and exit.")
-    boolean versionHelpRequested;
+    private boolean versionHelpRequested;
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
-    boolean versionInfoRequested;
+    private boolean versionInfoRequested;
     @Override
     public Integer call() throws Exception {
         try {
