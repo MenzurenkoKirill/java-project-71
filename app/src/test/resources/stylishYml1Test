@@ -1,0 +1,10 @@
+{
+  - age: 24
+  + age: 25
+  + graduation: true
+    name: Kirill
+  - post: design engineer
+  + post: java programmer
+  - study: true
+    surname: Menzurenko
+}

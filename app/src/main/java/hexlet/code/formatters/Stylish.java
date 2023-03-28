@@ -48,7 +48,7 @@ public class Stylish {
                             .append("\n");
                     break;
                 default:
-                    break;
+                    throw new RuntimeException("Error! Check the format of source files.");
             }
         }
         sb.append("}");

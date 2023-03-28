@@ -11,7 +11,7 @@ import static hexlet.code.Utils.getToFullPath;
 import static java.nio.file.Files.readString;
 
 public class Parser {
-    public static Map<String, Object> convertFileToMap(String filePath) throws Exception {
+    public static Map<String, Object> retrieveData(String filePath) throws Exception {
         Path fullFilePath = getToFullPath(filePath);
         Map<String, Object> file = null;
         if (filePath.endsWith(".json")) {

@@ -36,8 +36,10 @@ public class Plain {
                             .append(getValue(newValue))
                             .append("\n");
                     break;
-                default:
+                case ("unchanged") :
                     break;
+                default:
+                    throw new RuntimeException("Error! Check the format of source files.");
             }
         }
         return sb.toString().trim();

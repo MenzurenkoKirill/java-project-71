@@ -12,53 +12,26 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static hexlet.code.Parser.convertFileToMap;
-import static hexlet.code.Distinctions.differenceList;
+import static hexlet.code.Parser.retrieveData;
+import static hexlet.code.DiffBuilder.getDiff;
 
 public class Differ {
-    public static String generate(String firstFileNameForConvert, String secondFileNameForConvert, String formatName)
+    public static String generate(String firstPath, String secondPath, String formatName)
             throws Exception {
-        Map<String, Object> firstFileMapForGenerate = convertFileToMap(firstFileNameForConvert);
-        Map<String, Object> secondFileMapForGenerate = convertFileToMap(secondFileNameForConvert);
-        List<Link> mapsDifference = differenceList(firstFileMapForGenerate, secondFileMapForGenerate);
-        return formatSelectionForConvert(mapsDifference, formatName);
+        Map<String, Object> data1 = retrieveData(firstPath);
+        Map<String, Object> data2 = retrieveData(secondPath);
+        List<Link> difference = getDiff(data1, data2);
+        return selectFormat(difference, formatName);
     }
     public static String generate(String firstFileName, String secondFileName) throws Exception {
         return generate(firstFileName, secondFileName, "stylish");
     }
-    public static boolean differ(Map<String, Object> firstMapForComparison, Map<String, Object> secondMapForComparison,
-                                 String comparisonKey) throws Exception {
-        Object objectOfTheFirstComparedMap = firstMapForComparison.get(comparisonKey);
-        Object objectOfTheSecondComparedMap = secondMapForComparison.get(comparisonKey);
-        return (objectOfTheFirstComparedMap == null || objectOfTheSecondComparedMap == null
-                ? objectOfTheFirstComparedMap != objectOfTheSecondComparedMap : !objectOfTheFirstComparedMap.
-                equals(objectOfTheSecondComparedMap));
-    }
-    public static Set<String> getAllSortedKeys(Map<String, Object> firstMapWithNecessaryKeys,
-                                               Map<String, Object> secondMapWithNecessaryKeys) throws Exception {
-        Set<String> allKeysFromFirstMap = getAllKeysFromMap(firstMapWithNecessaryKeys);
-        Set<String> allKeysFromSecondMap = getAllKeysFromMap(secondMapWithNecessaryKeys);
-        allKeysFromFirstMap.addAll(allKeysFromSecondMap);
-        return allKeysFromFirstMap.stream()
-                .sorted()
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-    }
-    public static Set<String> getAllKeysFromMap(Map<String, Object> map) {
-        Set<String> result = new HashSet<>();
-        if (map == null) {
-            return result;
-        }
-        for (Map.Entry<String, Object> keys : map.entrySet()) {
-            result.add(keys.getKey());
-        }
-        return result;
-    }
-    private static String formatSelectionForConvert(List<Link> mapsDifference, String formatName) throws Exception {
+    private static String selectFormat(List<Link> mapsDifference, String formatName) throws Exception {
         return switch (formatName) {
             case "stylish" -> Stylish.formatStylish(mapsDifference);
             case "json" -> Json.formatJson(mapsDifference);
             case "plain" -> Plain.formatPlain(mapsDifference);
-            default -> "Output format error, check method argument";
+            default -> throw new RuntimeException("Output format error, check method argument");
         };
     }
 }
