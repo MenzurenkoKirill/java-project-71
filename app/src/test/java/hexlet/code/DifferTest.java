@@ -2,14 +2,11 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import static hexlet.code.Differ.generate;
-
 
 public class DifferTest {
     private static String getToFullPath(String path) {
