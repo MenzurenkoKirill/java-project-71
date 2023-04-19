@@ -1,11 +1,9 @@
 package hexlet.code;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,12 +24,15 @@ public class DifferTest {
     }
     @Test
     public void generateDefaultJsonTest() throws Exception {
-        Path path = Paths.get("src/test/resources/stylishJsonTest");
+/*        Path path = Paths.get("src/test/resources/stylishJsonTest");
         String expected = Files.readString(path);
         String nameFirstFile = "fileTest1.json";
-        String nameSecondFile = "fileTest2.json";
-        nameFirstFile = getToFullPath(nameFirstFile);
-        nameSecondFile = getToFullPath(nameSecondFile);
+        String nameSecondFile = "fileTest2.json";*/
+/*        nameFirstFile = getToFullPath(nameFirstFile);
+        nameSecondFile = getToFullPath(nameSecondFile);*/
+        String expected = Files.readString(Paths.get("src/test/resources/stylishJsonTest"));
+        String nameFirstFile = getToFullPath("fileTest1.json");
+        String nameSecondFile = getToFullPath("fileTest2.json");
         String actual = generate(nameFirstFile, nameSecondFile);
         Assertions.assertEquals(expected, actual);
     }
