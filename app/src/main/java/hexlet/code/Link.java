@@ -5,7 +5,7 @@ public class Link {
     private final String key;
     private final Object oldValue;
     private final Object newValue;
-    public Link(String type, String thisKey, Object newV, Object oldV) {
+    public Link(String type, String thisKey, Object oldV, Object newV) {
         this.typeOfChange = type;
         this.key = thisKey;
         this.oldValue = oldV;

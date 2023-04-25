@@ -16,17 +16,17 @@ public class DiffBuilder {
         allKeys.addAll(secondMap.keySet());
         for (String key : allKeys) {
             if (!firstMap.containsKey(key)) {
-                result.add(new Link("added", key, secondMap.get(key),
-                        firstMap.get(key)));
+                result.add(new Link("added", key, firstMap.get(key),
+                        secondMap.get(key)));
             } else if (!secondMap.containsKey(key)) {
-                result.add(new Link("deleted", key, secondMap.get(key),
-                        firstMap.get(key)));
+                result.add(new Link("deleted", key, firstMap.get(key),
+                        secondMap.get(key)));
             } else if (!Objects.equals(firstMap.get(key), secondMap.get(key))) {
-                result.add(new Link("changed", key, secondMap.get(key),
-                        firstMap.get(key)));
+                result.add(new Link("changed", key, firstMap.get(key),
+                        secondMap.get(key)));
             } else {
-                result.add(new Link("unchanged", key, secondMap.get(key),
-                        firstMap.get(key)));
+                result.add(new Link("unchanged", key, firstMap.get(key),
+                        secondMap.get(key)));
             }
         }
         return result;

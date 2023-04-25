@@ -5,7 +5,7 @@ import hexlet.code.Link;
 import java.util.List;
 
 public class Stylish {
-    public static String formatStylish(List<Link> mapsDifference)
+    public static String format(List<Link> mapsDifference)
             throws Exception {
         final StringBuilder sb = new StringBuilder("{\n");
         for (Link element : mapsDifference) {

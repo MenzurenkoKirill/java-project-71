@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import static hexlet.code.Differ.generate;
 
 public class DifferTest {
+
     private static String getToFullPath(String path) {
         String defaultPath = "src/test/resources";
         File file = new File(defaultPath);
@@ -136,7 +137,7 @@ public class DifferTest {
     }
     @Test
     public void generateYmlToPlain2Test() throws Exception {
-        /*Path path = Paths.get("src/test/resources/plainYml2Test");
+/*        Path path = Paths.get("src/test/resources/plainYml2Test");
         String expected = Files.readString(path);*/
         String expected = """
                 Property 'chars2' was updated. From [complex value] to false

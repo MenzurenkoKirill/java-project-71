@@ -7,8 +7,9 @@ import java.util.List;
 
 
 public class Json {
-    public static String formatJson(List<Link> mapsDifference) throws Exception {
+    public static String format(List<Link> mapsDifference) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(mapsDifference);
     }
 }
+

@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 public class Plain {
-    public static String formatPlain(List<Link> mapsDifference) {
+    public static String format(List<Link> mapsDifference) {
         final StringBuilder sb = new StringBuilder();
         for (Link element : mapsDifference) {
             String key = element.getKey();
             String typeOfChange = element.getTypeOfChange();
             Object oldValue = element.getOldValue();
+
             Object newValue = element.getNewValue();
             switch (typeOfChange) {
                 case ("added") :
                     sb.append("Property '")
                             .append(key)
                             .append("' was added with value: ")
-                            .append(getValue(newValue))
+                            .append(normalize(newValue))
                             .append("\n");
                     break;
                 case ("deleted") :
@@ -31,9 +32,9 @@ public class Plain {
                     sb.append("Property '")
                             .append(key)
                             .append("' was updated. From ")
-                            .append(getValue(oldValue))
+                            .append(normalize(oldValue))
                             .append(" to ")
-                            .append(getValue(newValue))
+                            .append(normalize(newValue))
                             .append("\n");
                     break;
                 case ("unchanged") :
@@ -44,7 +45,7 @@ public class Plain {
         }
         return sb.toString().trim();
     }
-    private static String getValue(Object value) {
+    private static String normalize(Object value) {
         if (value instanceof String) {
             return "'" + value + "'";
         }
