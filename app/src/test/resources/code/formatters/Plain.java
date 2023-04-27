@@ -1,4 +1,4 @@
-package hexlet.code.formatters;
+package code.formatters;
 
 import hexlet.code.Link;
 

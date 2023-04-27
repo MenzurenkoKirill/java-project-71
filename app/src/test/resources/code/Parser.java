@@ -1,4 +1,4 @@
-package hexlet.code;
+package code;
 
 import java.nio.file.Path;
 import java.util.Map;
@@ -10,9 +10,9 @@ public class Parser {
     public static Map<String, Object> retrieveData(Path fullFilePath) throws Exception {
         Map<String, Object> file = null;
         if (fullFilePath.toString().endsWith(".json")) {
-            file = convertJsonToMap(fullFilePath);
+            file = Differ.convertJsonToMap(fullFilePath);
         } else if (fullFilePath.toString().endsWith(".yml")) {
-            file = convertYamlToMap(fullFilePath);
+            file = Differ.convertYamlToMap(fullFilePath);
         }
         return  file;
     }

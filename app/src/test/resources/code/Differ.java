@@ -1,4 +1,4 @@
-package hexlet.code;
+package code;
 
 import hexlet.code.formatters.Json;
 import hexlet.code.formatters.Plain;
@@ -19,8 +19,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 public class Differ {
     public static String generate(String firstPath, String secondPath, String formatName)
             throws Exception {
-        Map<String, Object> data1 = retrieveData(getToFullPath(firstPath));
-        Map<String, Object> data2 = retrieveData(getToFullPath(secondPath));
+        Map<String, Object> data1 = retrieveData(Utils.getToFullPath(firstPath));
+        Map<String, Object> data2 = retrieveData(Utils.getToFullPath(secondPath));
         List<Link> difference = getDiff(data1, data2);
         return selectFormat(difference, formatName);
     }

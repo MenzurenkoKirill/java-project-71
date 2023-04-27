@@ -1,4 +1,4 @@
-package hexlet.code;
+package code;
 
 public class Link {
     private final String typeOfChange;
