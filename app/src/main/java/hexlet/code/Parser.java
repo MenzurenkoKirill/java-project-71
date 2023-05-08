@@ -1,17 +1,16 @@
 package hexlet.code;
 
-import java.nio.file.Path;
 import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class Parser {
-    public static Map<String, Object> retrieveData(Path fullFilePath, String fileContent) throws Exception {
+    public static Map<String, Object> retrieveData(String fileName, String fileContent) throws Exception {
         Map<String, Object> file = null;
-        if (fullFilePath.toString().endsWith(".json")) {
+        if (fileName.endsWith(".json")) {
             file = convertJsonToMap(fileContent);
-        } else if (fullFilePath.toString().endsWith(".yml")) {
+        } else if (fileName.endsWith(".yml")) {
             file = convertYamlToMap(fileContent);
         }
         return  file;

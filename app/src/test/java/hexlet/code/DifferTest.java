@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,10 +12,16 @@ import static hexlet.code.Differ.generate;
 
 public class DifferTest {
 
-    private final String expectedStylish = Files.readString(Path.of(getToFullPath("Expected_Stylish.txt")));
-    private final String expectedPlain = Files.readString(Path.of(getToFullPath("Expected_Plain.txt")));
-    private final String expectedJson = Files.readString(Path.of(getToFullPath("Expected_Json.txt")));
+    private static String expectedStylish;
+    private static String expectedPlain;
+    private static String expectedJson;
 
+    @BeforeAll
+    public static void init() throws IOException {
+        expectedStylish = Files.readString(Path.of(getToFullPath("Expected_Stylish.txt")));
+        expectedPlain = Files.readString(Path.of(getToFullPath("Expected_Plain.txt")));
+        expectedJson = Files.readString(Path.of(getToFullPath("Expected_Json.txt")));
+    }
     private final String nameFirstFileJson = (getToFullPath("fileTest1.json"));
     private final String nameSecondFileJson = (getToFullPath("fileTest2.json"));
     private final String nameFirstFileYml = (getToFullPath("fileTest1.yml"));
@@ -35,14 +42,26 @@ public class DifferTest {
     }
 
     @Test
-    public void stylishFromJsonTest() throws Exception {
+    public void stylishFromJsonWithoutArgTest() throws Exception {
         String actual = generate(nameFirstFileJson, nameSecondFileJson);
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
     @Test
-    public void stylishFromYmlTest() throws Exception {
+    public void stylishFromJsonWithArgTest() throws Exception {
+        String actual = generate(nameFirstFileJson, nameSecondFileJson, "stylish");
+        assertThat(actual).isEqualTo(expectedStylish);
+    }
+
+    @Test
+    public void stylishFromYmlWithoutArgTest() throws Exception {
         String actual = generate(nameFirstFileYml, nameSecondFileYml);
+        assertThat(actual).isEqualTo(expectedStylish);
+    }
+
+    @Test
+    public void stylishFromYmlWithArgTest() throws Exception {
+        String actual = generate(nameFirstFileYml, nameSecondFileYml, "stylish");
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
