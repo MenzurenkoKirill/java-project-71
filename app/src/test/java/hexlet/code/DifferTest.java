@@ -22,10 +22,10 @@ public class DifferTest {
         expectedPlain = Files.readString(Path.of(toFullPath("Expected_Plain.txt")));
         expectedJson = Files.readString(Path.of(toFullPath("Expected_Json.txt")));
     }
-    private final String nameFirstFileJson = ("src/test/resources/fileTest1.json");
-    private final String nameSecondFileJson = ("src/test/resources/fileTest2.json");
-    private final String nmeFirstFileYml = ("src/test/resources/fileTest1.yml");
-    private final String nameSecondFileYml = ("src/test/resources/fileTest2.yml");
+    private final String nameFirstFileJson = toFullPath("fileTest1.json");
+    private final String nameSecondFileJson = toFullPath("fileTest2.json");
+    private final String nameFirstFileYml = toFullPath("fileTest1.yml");
+    private final String nameSecondFileYml = toFullPath("fileTest2.yml");
 
     public DifferTest() throws IOException {
     }
@@ -55,13 +55,13 @@ public class DifferTest {
 
     @Test
     public void stylishFromYmlWithoutArgTest() throws Exception {
-        String actual = generate(nmeFirstFileYml, nameSecondFileYml);
+        String actual = generate(nameFirstFileYml, nameSecondFileYml);
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
     @Test
     public void stylishFromYmlWithArgTest() throws Exception {
-        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "stylish");
+        String actual = generate(nameFirstFileYml, nameSecondFileYml, "stylish");
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
@@ -73,7 +73,7 @@ public class DifferTest {
 
     @Test
     public void plainFromYmlTest() throws Exception {
-        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "plain");
+        String actual = generate(nameFirstFileYml, nameSecondFileYml, "plain");
         assertThat(actual).isEqualTo(expectedPlain);
     }
 
@@ -85,7 +85,7 @@ public class DifferTest {
 
     @Test
     public void jsonFromYmlTest() throws Exception {
-        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "json");
+        String actual = generate(nameFirstFileYml, nameSecondFileYml, "json");
         assertThat(actual).isEqualTo(expectedJson);
     }
 }
