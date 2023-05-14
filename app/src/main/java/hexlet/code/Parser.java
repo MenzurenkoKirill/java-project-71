@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class Parser {
-    public static Map<String, Object> retrieveData(String fileName, String fileContent) throws Exception {
+    public static Map<String, Object> retrieveData(String extension, String fileContent) throws Exception {
         Map<String, Object> file = null;
-        if (fileName.endsWith(".json")) {
+        if (extension.contains("json")) {
             file = convertJsonToMap(fileContent);
-        } else if (fileName.endsWith(".yml")) {
+        } else if (extension.contains("yml")) {
             file = convertYamlToMap(fileContent);
         }
         return  file;

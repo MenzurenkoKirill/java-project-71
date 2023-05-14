@@ -18,19 +18,19 @@ public class DifferTest {
 
     @BeforeAll
     public static void init() throws IOException {
-        expectedStylish = Files.readString(Path.of(getToFullPath("Expected_Stylish.txt")));
-        expectedPlain = Files.readString(Path.of(getToFullPath("Expected_Plain.txt")));
-        expectedJson = Files.readString(Path.of(getToFullPath("Expected_Json.txt")));
+        expectedStylish = Files.readString(Path.of(toFullPath("Expected_Stylish.txt")));
+        expectedPlain = Files.readString(Path.of(toFullPath("Expected_Plain.txt")));
+        expectedJson = Files.readString(Path.of(toFullPath("Expected_Json.txt")));
     }
-    private final String nameFirstFileJson = (getToFullPath("fileTest1.json"));
-    private final String nameSecondFileJson = (getToFullPath("fileTest2.json"));
-    private final String nameFirstFileYml = (getToFullPath("fileTest1.yml"));
-    private final String nameSecondFileYml = (getToFullPath("fileTest2.yml"));
+    private final String nameFirstFileJson = ("/home/kirill/project2/app/src/test/resources/fileTest1.json");
+    private final String nameSecondFileJson = ("/home/kirill/project2/app/src/test/resources/fileTest2.json");
+    private final String nmeFirstFileYml = ("/home/kirill/project2/app/src/test/resources/fileTest1.yml");
+    private final String nameSecondFileYml = ("/home/kirill/project2/app/src/test/resources/fileTest2.yml");
 
     public DifferTest() throws IOException {
     }
 
-    private static String getToFullPath(String path) {
+    private static String toFullPath(String path) {
         String defaultPath = "src/test/resources";
         File file = new File(defaultPath);
         String absolutePath = file.getAbsolutePath();
@@ -55,13 +55,13 @@ public class DifferTest {
 
     @Test
     public void stylishFromYmlWithoutArgTest() throws Exception {
-        String actual = generate(nameFirstFileYml, nameSecondFileYml);
+        String actual = generate(nmeFirstFileYml, nameSecondFileYml);
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
     @Test
     public void stylishFromYmlWithArgTest() throws Exception {
-        String actual = generate(nameFirstFileYml, nameSecondFileYml, "stylish");
+        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "stylish");
         assertThat(actual).isEqualTo(expectedStylish);
     }
 
@@ -73,7 +73,7 @@ public class DifferTest {
 
     @Test
     public void plainFromYmlTest() throws Exception {
-        String actual = generate(nameFirstFileYml, nameSecondFileYml, "plain");
+        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "plain");
         assertThat(actual).isEqualTo(expectedPlain);
     }
 
@@ -85,7 +85,7 @@ public class DifferTest {
 
     @Test
     public void jsonFromYmlTest() throws Exception {
-        String actual = generate(nameFirstFileYml, nameSecondFileYml, "json");
+        String actual = generate(nmeFirstFileYml, nameSecondFileYml, "json");
         assertThat(actual).isEqualTo(expectedJson);
     }
 }
