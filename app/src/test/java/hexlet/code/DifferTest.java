@@ -22,10 +22,10 @@ public class DifferTest {
         expectedPlain = Files.readString(Path.of(toFullPath("Expected_Plain.txt")));
         expectedJson = Files.readString(Path.of(toFullPath("Expected_Json.txt")));
     }
-    private final String nameFirstFileJson = ("/home/kirill/project2/app/src/test/resources/fileTest1.json");
-    private final String nameSecondFileJson = ("/home/kirill/project2/app/src/test/resources/fileTest2.json");
-    private final String nmeFirstFileYml = ("/home/kirill/project2/app/src/test/resources/fileTest1.yml");
-    private final String nameSecondFileYml = ("/home/kirill/project2/app/src/test/resources/fileTest2.yml");
+    private final String nameFirstFileJson = ("src/test/resources/fileTest1.json");
+    private final String nameSecondFileJson = ("src/test/resources/fileTest2.json");
+    private final String nmeFirstFileYml = ("src/test/resources/fileTest1.yml");
+    private final String nameSecondFileYml = ("src/test/resources/fileTest2.yml");
 
     public DifferTest() throws IOException {
     }
