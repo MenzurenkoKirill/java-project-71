@@ -12,6 +12,8 @@ public class Parser {
             file = convertJsonToMap(fileContent);
         } else if (extension.contains("yml")) {
             file = convertYamlToMap(fileContent);
+        } else {
+            throw new RuntimeException("Invalid format specified!");
         }
         return  file;
     }
