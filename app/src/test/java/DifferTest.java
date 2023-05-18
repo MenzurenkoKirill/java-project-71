@@ -1,5 +1,3 @@
-package hexlet.code;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,10 +21,10 @@ public class DifferTest {
         expectedPlain = Files.readString(Path.of(toFullPath("Expected_Plain.txt")));
         expectedJson = Files.readString(Path.of(toFullPath("Expected_Json.txt")));
     }
-    private final String nameFirstFileJson = toFullPath("fileTest1.json");
-    private final String nameSecondFileJson = toFullPath("fileTest2.json");
-    private final String nameFirstFileYml = toFullPath("fileTest1.yml");
-    private final String nameSecondFileYml = toFullPath("fileTest2.yml");
+    private final String nameFirstFileJson = ("src/test/resources/fileTest1.json");
+    private final String nameSecondFileJson = ("src/test/resources/fileTest2.json");
+    private final String nameFirstFileYml = ("src/test/resources/fileTest1.yml");
+    private final String nameSecondFileYml = ("src/test/resources/fileTest2.yml");
 
     public DifferTest() throws IOException {
     }
