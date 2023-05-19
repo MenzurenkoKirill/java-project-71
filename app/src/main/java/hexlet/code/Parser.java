@@ -7,15 +7,13 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class Parser {
     public static Map<String, Object> retrieveData(String extension, String fileContent) throws Exception {
-        Map<String, Object> file = null;
         if (extension.contains("json")) {
-            file = convertJsonToMap(fileContent);
+            return convertJsonToMap(fileContent);
         } else if (extension.contains("yml")) {
-            file = convertYamlToMap(fileContent);
+            return convertYamlToMap(fileContent);
         } else {
             throw new RuntimeException("Invalid format specified!");
         }
-        return  file;
     }
     public static Map<String, Object> convertYamlToMap(String fileContent) throws Exception {
         ObjectMapper mapper = new YAMLMapper();

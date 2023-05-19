@@ -2,15 +2,15 @@ package hexlet.code;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Utils {
     private static final String DEFAULT_PATH = "src/main/resources";
     public static Path getFullPath(String filePath) throws Exception {
-        File file = new File(DEFAULT_PATH);
-        String absolutePathForFile = file.getAbsolutePath();
-        Path resultPath = Path.of(filePath);
-        if (!filePath.startsWith("/")) {
-            resultPath = Path.of(absolutePathForFile + "/" + filePath);
+        Path path = Paths.get(filePath);
+        if (path.isAbsolute()) {
+            return path;
         }
-        return resultPath;
+        return path.toAbsolutePath().normalize();
     }
 }
